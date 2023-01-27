@@ -27,7 +27,9 @@ class OnBoardingFragment : Fragment() {
         val adapter = OnBoardingAdapter(){
             findNavController().navigateUp()
         }
-        binding.viewpager2.adapter = adapter
+        binding.viewPager.adapter = adapter
+        binding.indicator.setViewPager(binding.viewPager)
+        adapter.registerAdapterDataObserver(binding.indicator.adapterDataObserver);
     }
 
 }
