@@ -27,6 +27,7 @@
     </androidx.cardview.widget.CardView>
 
     <EditText
+        android:id="@+id/et_name"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Text"
@@ -40,5 +41,21 @@
         android:paddingStart="16dp"
         android:textColor="@color/white"
         tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="#419af7"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_img"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

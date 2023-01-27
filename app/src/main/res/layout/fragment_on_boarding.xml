@@ -20,6 +20,4 @@
         app:ci_drawable="@drawable/ic_circle_selected"
         app:ci_drawable_unselected="@drawable/ic_circle_unselected"
         />
-
-
 </FrameLayout>
