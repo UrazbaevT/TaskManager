@@ -42,6 +42,21 @@
         android:textColor="@color/white"
         tools:ignore="MissingConstraints" />
 
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        app:layout_constraintTop_toBottomOf="@+id/cv_img"
+        android:layout_marginHorizontal="20dp"
+        android:layout_margin="25dp"
+        android:paddingStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColorHint="@color/gray"
+        android:textSize="24sp"
+        tools:ignore="MissingConstraints" />
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save_profile"
         android:layout_width="wrap_content"
