@@ -16,7 +16,8 @@
         android:paddingStart="16dp"
         android:textColor="@color/white"
         android:hint="Title"
-        android:textColorHint="@color/gray"/>
+        android:textColorHint="@color/gray"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/et_desc"
