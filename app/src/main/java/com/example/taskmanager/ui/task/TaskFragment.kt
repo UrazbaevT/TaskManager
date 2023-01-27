@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
-import com.example.taskmanager.R
-import com.example.taskmanager.Task
-import com.example.taskmanager.databinding.ActivityMainBinding
+import com.example.taskmanager.model.Task
 import com.example.taskmanager.databinding.FragmentTaskBinding
 
 class TaskFragment : Fragment() {

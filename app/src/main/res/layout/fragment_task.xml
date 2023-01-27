@@ -30,7 +30,6 @@
         android:textColor="@color/white"
         android:hint="Description"
         android:textColorHint="@color/gray"
-        android:lines="3"
         android:gravity="top"/>
 
     <com.google.android.material.button.MaterialButton
