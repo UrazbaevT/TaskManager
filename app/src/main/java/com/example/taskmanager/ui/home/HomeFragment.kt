@@ -1,5 +1,7 @@
 package com.example.taskmanager.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +27,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = TaskAdapter()
+        adapter = TaskAdapter(this::onLongClick)
     }
 
     override fun onCreateView(
@@ -40,8 +42,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tasks = App.db.taskDao().getAll()
-        adapter.addTasks(tasks)
+        setData()
+//        val tasks = App.db.taskDao().getAll()
+//        adapter.addTasks(tasks)
+
 //        setFragmentResultListener(TaskFragment.RESULT_TASK) { key, bundle ->
 //            val result = bundle.getSerializable("task") as Task
 //            adapter.addTask(result)
@@ -51,6 +55,29 @@ class HomeFragment : Fragment() {
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
+    }
+
+    private fun setData(){
+        val tasks = App.db.taskDao().getAll()
+        adapter.addTasks(tasks)
+    }
+
+    private fun onLongClick(task: Task){
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("Do you want to delete?")
+        alertDialog.setNegativeButton("No", object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog?.cancel()
+            }
+        })
+        alertDialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                App.db.taskDao().delete(task)
+                setData()
+            }
+        })
+        alertDialog.create().show()
     }
 
     override fun onDestroyView() {
