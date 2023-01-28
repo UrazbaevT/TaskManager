@@ -61,7 +61,7 @@ class OnBoardingAdapter(private val onClick: () -> Unit) :
             binding.tvTitle.text = onBoard.title
             binding.tvDesk.text = onBoard.desc
 
-            onBoard.image?.let { binding.image.setAnimation(it) }
+            onBoard.lottie?.let { binding.image.setAnimation(it) }
 //          binding.image.loadImage(onBoard.image.toString())
 
             binding.btnStart.isVisible = adapterPosition == data.lastIndex

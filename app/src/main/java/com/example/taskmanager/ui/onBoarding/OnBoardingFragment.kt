@@ -15,7 +15,6 @@ import com.example.taskmanager.ui.onBoarding.adapter.OnBoardingAdapter
 class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
-    private lateinit var animationView: LottieAnimationView
     private lateinit var pref: Pref
 
     override fun onCreateView(
@@ -31,7 +30,6 @@ class OnBoardingFragment : Fragment() {
         pref = Pref(requireContext())
         val adapter = OnBoardingAdapter(){
             pref.saveSeen()
-            animationView.playAnimation()
             findNavController().navigateUp()
         }
         binding.viewPager.adapter = adapter
