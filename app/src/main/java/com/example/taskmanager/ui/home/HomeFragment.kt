@@ -41,8 +41,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setData()
+
 //        val tasks = App.db.taskDao().getAll()
 //        adapter.addTasks(tasks)
 
@@ -79,6 +79,8 @@ class HomeFragment : Fragment() {
         })
         alertDialog.create().show()
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
