@@ -1,5 +1,6 @@
 package com.example.taskmanager
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,14 +13,19 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.taskmanager.data.Pref
 import com.example.taskmanager.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var pref: Pref
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        auth = FirebaseAuth.getInstance()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -31,7 +37,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         if (!pref.isUserSeen())
-        navController.navigate(R.id.onBoardingFragment)
+            navController.navigate(R.id.onBoardingFragment)
+        if (auth.currentUser == null) {
+            navController.navigate(R.id.authFragment)
+        }
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -41,9 +50,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.taskFragment,
                 R.id.navigation_profile
             )
+
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
         val bottomNavFragments = arrayListOf(
             R.id.navigation_home,
             R.id.navigation_dashboard,
@@ -51,11 +59,17 @@ class MainActivity : AppCompatActivity() {
             R.id.taskFragment,
             R.id.navigation_profile
         )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+        if (FirebaseAuth.getInstance().currentUser?.uid == null) {
+            navController.navigate(R.id.authFragment)
+        }
+
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             navView.isVisible = bottomNavFragments.contains(destination.id)
-            if (destination.id == R.id.onBoardingFragment){
+            if (destination.id == R.id.onBoardingFragment) {
                 supportActionBar?.hide()
-            }else supportActionBar?.show()
+            } else supportActionBar?.show()
         }
     }
 }
