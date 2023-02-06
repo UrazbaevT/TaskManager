@@ -6,14 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.example.taskmanager.R
 import com.example.taskmanager.databinding.FragmentAcceptBinding
 import com.example.taskmanager.databinding.FragmentAuthBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.example.taskmanager.R
 
 class AcceptFragment : Fragment() {
 
@@ -47,7 +48,6 @@ class AcceptFragment : Fragment() {
                     val user = task.result?.user
                 } else {
                     // Sign in failed, display a message and update the UI
-                    Log.w("ololo", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                     }

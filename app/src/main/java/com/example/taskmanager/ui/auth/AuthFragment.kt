@@ -49,16 +49,10 @@ class AuthFragment : Fragment() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-    val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            // This callback will be invoked in two situations:
-            // 1 - Instant verification. In some cases the phone number can be instantly
-            //     verified without needing to send or enter a verification code.
-            // 2 - Auto-retrieval. On some devices Google Play services can automatically
-            //     detect the incoming verification SMS and perform verification without
-            //     user action.
-            //signInWithPhoneAuthCredential(credential)
+
         }
 
         override fun onVerificationFailed(e: FirebaseException) {

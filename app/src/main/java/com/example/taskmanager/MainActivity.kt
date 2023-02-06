@@ -1,12 +1,9 @@
 package com.example.taskmanager
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -24,13 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        auth = FirebaseAuth.getInstance()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         pref = Pref(this)
+
+        auth = FirebaseAuth.getInstance()
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -38,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         if (!pref.isUserSeen())
             navController.navigate(R.id.onBoardingFragment)
+
         if (auth.currentUser == null) {
             navController.navigate(R.id.authFragment)
         }
@@ -52,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             )
 
         )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
         val bottomNavFragments = arrayListOf(
             R.id.navigation_home,
             R.id.navigation_dashboard,
@@ -59,12 +58,6 @@ class MainActivity : AppCompatActivity() {
             R.id.taskFragment,
             R.id.navigation_profile
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-        if (FirebaseAuth.getInstance().currentUser?.uid == null) {
-            navController.navigate(R.id.authFragment)
-        }
-
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             navView.isVisible = bottomNavFragments.contains(destination.id)
             if (destination.id == R.id.onBoardingFragment) {
