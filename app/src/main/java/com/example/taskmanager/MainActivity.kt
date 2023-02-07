@@ -15,8 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var pref: Pref
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +22,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pref = Pref(this)
-
-        auth = FirebaseAuth.getInstance()
+//        pref = Pref(this)
+//
+//        auth = FirebaseAuth.getInstance()
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        if (!pref.isUserSeen())
-            navController.navigate(R.id.onBoardingFragment)
-
-        if (auth.currentUser == null) {
-            navController.navigate(R.id.authFragment)
-        }
+//        if (!pref.isUserSeen())
+//            navController.navigate(R.id.onBoardingFragment)
+//
+//        if (auth.currentUser == null) {
+//            navController.navigate(R.id.authFragment)
+//        }
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         )
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             navView.isVisible = bottomNavFragments.contains(destination.id)
-            if (destination.id == R.id.onBoardingFragment) {
+            if (destination.id == R.id.onBoardingFragment || destination.id == R.id.splashFragment) {
                 supportActionBar?.hide()
             } else supportActionBar?.show()
         }

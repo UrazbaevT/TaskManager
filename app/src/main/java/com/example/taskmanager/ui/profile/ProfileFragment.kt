@@ -9,15 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.R
 import com.example.taskmanager.data.Pref
 import com.example.taskmanager.databinding.FragmentProfileBinding
 import com.example.taskmanager.utils.loadImage
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var pref: Pref
+    private val auth = FirebaseAuth.getInstance()
 
     private val launcher = registerForActivityResult<Intent, ActivityResult>(
         ActivityResultContracts.StartActivityForResult()
@@ -56,6 +60,13 @@ class ProfileFragment : Fragment() {
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             launcher.launch(intent)
+        }
+
+        binding.btnLogOutProfile.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            findNavController().navigate(R.id.onBoardingFragment)
+            auth.currentUser == null
+            findNavController().navigate(R.id.authFragment)
         }
     }
 }
