@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         pref = Pref(this)
-
         auth = FirebaseAuth.getInstance()
+
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         if (!pref.isUserSeen())
             navController.navigate(R.id.onBoardingFragment)
-
         if (auth.currentUser == null) {
             navController.navigate(R.id.authFragment)
         }
