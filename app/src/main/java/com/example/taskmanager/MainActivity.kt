@@ -1,6 +1,7 @@
 package com.example.taskmanager
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.taskmanager.data.Pref
 import com.example.taskmanager.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,8 +48,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.taskFragment,
                 R.id.navigation_profile
             )
-
         )
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            Log.e("ololo", "onCreate: " + task.result )
+        }
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         val bottomNavFragments = arrayListOf(

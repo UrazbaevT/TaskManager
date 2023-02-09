@@ -24,6 +24,8 @@ class TaskFragment : Fragment() {
 
     private lateinit var binding: FragmentTaskBinding
     private val db = Firebase.firestore
+    private lateinit var navArgs: TaskFragmentArgs
+    private var task: Task? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,8 +36,24 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            navArgs = TaskFragmentArgs.fromBundle(it)
+            task = navArgs.task
+        }
+
+        if (task != null){
+            binding.etTitle.setText(task?.title)
+            binding.etDesc.setText(task?.desc)
+            binding.btnSave.text = "Update"
+        }else{
+            binding.btnSave.text = "Save"
+        }
+
         binding.btnSave.setOnClickListener {
-            onSave()
+            if(task != null){
+                onUpdate()
+            }else onSave()
+
 //            App.db.taskDao().insert(
 //                Task(
 //                    title = binding.etTitle.text.toString(),
@@ -54,6 +72,13 @@ class TaskFragment : Fragment() {
 //            )
             findNavController().navigateUp()
         }
+    }
+
+    private fun onUpdate() {
+        task?.title = binding.etTitle.text.toString()
+        task?.desc = binding.etDesc.text.toString()
+        task?.let { App.db.taskDao().update(it) }
+        findNavController().navigateUp()
     }
 
     private fun onSave() {

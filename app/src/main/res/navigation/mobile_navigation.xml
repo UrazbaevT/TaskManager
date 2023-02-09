@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.taskmanager.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_taskFragment"
+            app:destination="@id/taskFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -27,7 +31,13 @@
         android:id="@+id/taskFragment"
         android:name="com.example.taskmanager.ui.task.TaskFragment"
         android:label="Task"
-        tools:layout="@layout/fragment_task" />
+        tools:layout="@layout/fragment_task" >
+        <argument
+            android:name="task"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.example.taskmanager.model.Task"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
